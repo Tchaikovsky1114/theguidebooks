@@ -4,6 +4,7 @@ const createUser = require('./create_user');
 const regionalFunctions = functions.region('asia-northeast3');
 const serviceAccount = require('./theguidebooks-firebase-adminsdk-h4rr4-02a9d47749.json');
 const requestOneTimePassword = require('./request_one_time_password');
+const sendgrid = require('./sendgrid');
 
 
 admin.initializeApp({
@@ -12,3 +13,4 @@ admin.initializeApp({
 
 exports.createUser = regionalFunctions.https.onRequest(createUser);
 exports.requestOneTimePassword = regionalFunctions.https.onRequest(requestOneTimePassword);
+exports.sendVerifyingCode = regionalFunctions.https.onRequest(sendgrid);
