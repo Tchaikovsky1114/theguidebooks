@@ -1,5 +1,6 @@
-const admin = require('firebase-admin');
 const twilio = require('./twilio');
+const admin = require('firebase-admin');
+
 
 module.exports = function (req,res) {
   if(!req.body.phone) {
@@ -16,16 +17,20 @@ module.exports = function (req,res) {
       body: '코드는 ' + code + '입니다.',
       to: '+82' + phone.substr(1),
       from: '+19382008436'
-    }, (err) => {
-      if(err) { return res.status(422).send(err)}
-
-      admin.database().ref('users/' + phone)
-      .update({ code : code, codeValid: true}, () => {
-        res.send({ success: true})
-      })
+    })
+    .then((message) => {
+        
+        admin.database().ref('users/' + phone)
+        .update({ code : code, codeValid: true}, () => {
+          res.send({ success: true, message: message})
+        })
+      
+    })
+    .catch((err) => {
+      res.status(422).send(err)
     })
   })
   .catch((err) => {
-    res.status(422).send( { error: err});
+    res.status(400).send({ error: err});
   })
 }

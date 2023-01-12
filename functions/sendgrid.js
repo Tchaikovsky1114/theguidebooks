@@ -21,12 +21,7 @@ module.exports = function (req,res) {
       code: code
     }
   }
-  // html: /*html */`
-  //   <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; margin-top:50px; height:100px; border:1px solid #2d63e2;">
-  //   <h3 style="text-decoration:underline">The GuideBooks에 엑세스하기 위해 다음 확인코드를 입력해주세요.</h3>
-  //   <p style="font-weight:bold; font-size:22px">${code}</p>
-  // </div>
-  // `
+
 
   sgMail.send(msg)
   .then((data) => {
